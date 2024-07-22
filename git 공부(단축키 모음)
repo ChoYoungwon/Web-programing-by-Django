@@ -1,0 +1,51 @@
+
+<용어>
+Repojitory : 버전이 관리되는 곳
+staging Area : 버전을 만드려고 하는 파일들
+Working tree : 파일을 수정하는 곳
+
+
+<git dash 파일 편집기>
+nano 파일.txt (파일 생성, 수정)
+
+
+<git 명령어>
+git ini                        : 디렉토리 버전관리 시작
+git status                     : 깃 상태 확인
+git add (파일명)               : staging area로 올리기
+git add .                      : 현재 디렉토리 밑의 모든 파일을 add
+git commit -m "(Message)"      : 버전생성(staging area -> repository)
+git commit -am "(Message)"      : add와 commit을 한 번에
+git commit --amend              : commit 내용 수정
+
+git log
+git log --stat                 : 관련된 파일 확인
+git diff                       : 차이점 확인
+git reset --hard               : 작업내용 삭제 (해당 버전이 되겠다는 의미)
+git log -p
+
+git checkout (commit id)
+git checkout master            : 가장 최신 상태로
+git config --global core.edition "nano" (기본 에디터 변경)
+
+<버전 되돌리기>
+git revert (commit id)         : 원하는 것 보다 최신것 선택 (commit에서의 변화를 취소함, 역순으로 revert를 해야 충돌이 안난다)
+
+<브랜치 명령어>
+git branch                     : 브랜치 조회
+git branch  (이름)              : 브랜치 추가
+
+<깃허브 원격 저장소 연결>
+git remote add origin (레포지토리 주소)    : origin(뒤 주소의 별병, 기본적인 원격저장소 별칭)
+git remote                                 : 원격 저장소 확인
+git remote -v                              : 주소포함 원격 저장소 확인
+git clone (레포지토리 주소) (디렉토리 이름)
+
+<git 협업>
+git remote add (origin) 레포지토리 주소
+git push -u origin master                   :  지역과 원격의 master를 페어링 시켜준다(한 번만)
+
+git pull, git push
+
+git fetch -> merge FETCH_HEAD -> commit -> push (신중하게 가져오려고 할 때)
+= git pull -> commit -> push
