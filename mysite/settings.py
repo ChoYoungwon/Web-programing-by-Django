@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "bookmark",
     "blog.apps.BlogConfig",
+    "taggit.apps.TaggitAppConfig",
+    "taggit_templatetags2",
 ]
 
 MIDDLEWARE = [
@@ -129,3 +131,17 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# django-taggit, django-taggit-templatetags2 공식 문서 사이트
+# https://django-taggit.readthedocs.io/en/latest/index.html
+# https://github.com/fizista/django-taggit-templatetags2
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+TAGGIT_CASE_INSENSITIVE = True                      # 태그 이름에 대소문자를 구분하지 않는다는 의미
+TAGGIT_LIMIT = 50                                   # 태그의 최대 개수
+
+DISQUS_SHORTNAME = 'django-web-programming-16'
+DISQUS_MY_DOMAIN = 'http://127.0.0.1:8000'

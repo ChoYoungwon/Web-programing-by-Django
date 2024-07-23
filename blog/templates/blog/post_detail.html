@@ -1,22 +1,77 @@
-<h2> {{ object.title }}</h2>
+{% extends "base.html" %}
 
-<p>
-    {% if object.get_previous %}
-    <a href="{{object.get_previous.get_absolute_url}}" title="View previous post">
-        &laquo;-- {{ object.get_previous}}
-    </a>
-    {% endif %}
+{% block title %}post_detail.html{% endblock %}
 
-    {% if object.get_next %}
-    | <a href="{{object.get_next.get_absolute_url}}" title="View previous post">
-    {{object.get_next}} --&raquo;
-    </a>
-    {% endif %}
-</p>
+{% block extra-style %}
+<style>
+.post-body{
+    width: 80%;
+    margin: auto;
+    font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+    font-size: 16px;
+}
+</style>
+{% endblock %}
 
-<p>{{object.modify_dt|date:"j F Y"  }}</p>
-<br>
+{% block content %}
+<div id="post-body">
+    <h2> {{ object.title }}</h2>
 
-<div>
-    {{object.content|linebreaks}}
+    <p>
+        {% if object.get_next %}
+        <a href="{{object.get_next.get_absolute_url}}" title="View previous post">
+            <i class="fas fa-arrow-circle-left"></i> {{object.get_next}}
+        </a>
+        {% endif %}
+
+        {% if object.get_previous %}
+        | <a href="{{object.get_previous.get_absolute_url}}" title="View previous post">
+        {{ object.get_previous}} <i class="fas fa-arrow-circle-right"></i>
+        </a>
+        {% endif %}
+
+    </p>
+
+    <p>{{object.modify_dt|date:"j F Y"  }}</p>
+    <br>
+
+    <div>
+        {{object.content|linebreaks}}
+    </div>
+
+    <br>
+    <div>
+        <b>TAGS</b> <i class="fas fa-tag"></i>
+        <!--모듈 로딩-->
+        {% load taggit_templatetags2_tags %}
+
+        <!--object 객체에 달려 있는 태그들의 리스트를 추출-->
+        {% get_tags_for_object object as "tags" %}
+        {% for tag in tags %}
+        <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
+        {% endfor %}
+        &emsp;
+        <a href="{% url 'blog:tag_cloud' %}"><span class="btn btn-info btn-sm">TagCloud</span></a>
+    </div>
+
+    <br>
+    <div id="disqus_thread"></div>
 </div>
+{% endblock %}
+
+{% block extra-script %}
+<script>
+var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://django-web-programming-16.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+{% endblock %}
