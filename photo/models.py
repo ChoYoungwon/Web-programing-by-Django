@@ -15,3 +15,19 @@ class Album(models.Model):
 
     def get_absolute_url(self):
         return reverse('photo:album_detail', args=(self.id,))
+
+class Photo(models.Model):
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    title = models.CharField('TITLE', max_length=30)
+    description = models.TextField('Photo Description', blank=True)
+    image = ThumbnailImageField(upload_to='photo/%Y/%m')
+    upload_dt = models.DateTimeField('Upload Date', auto_now_add=True)
+
+    class Meta:
+        ordering = ('title',)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('photo:photo_detail', args=(self.id,))
