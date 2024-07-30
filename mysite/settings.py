@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "blog.apps.BlogConfig",
     "taggit.apps.TaggitAppConfig",
     "taggit_templatetags2",
+    "widget_tweaks",
     "photo.apps.PhotoConfig",                       # photo 어플리케이션 연결
 ]
 
@@ -146,3 +147,7 @@ TAGGIT_LIMIT = 50                                   # 태그의 최대 개수
 
 DISQUS_SHORTNAME = 'django-web-programming-16'
 DISQUS_MY_DOMAIN = 'http://127.0.0.1:8000'
+
+#LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
+

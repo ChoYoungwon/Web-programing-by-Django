@@ -50,8 +50,33 @@
     <form class="d-flex ms-3 my-2" action="" method="post"> {% csrf_token %}
       <input class="form-control me-2" type="search" placeholder="global search" name="search_word">
     </form>
+
+      <ul class="navbar-nav ml-5 mr-5">
+          <li class="nav-item dropdown mx-1 btn btn-primary">
+              {% if user.is_active %}
+              <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
+                  <i class="fas fa-user"></i>&ensp;{% firstof user.get_short_name user.get_username %}&ensp;</a>
+              <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit();" >Logout</a>
+                  <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
+              </div>
+              {% else %}
+              <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
+                  <i class="fas fa-user"></i>&ensp;Annoymous&ensp;</a>
+              <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                  <a class="dropdown-item" href="{%url 'register' %}">Register</a>
+              </div>
+              {% endif %}
+          </li>
+      </ul>
   </div>
 </nav>
+
+<form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+  {% csrf_token %}
+  <button type="submit">Logout</button>
+</form>
 
 <div class="container">
     {% block content %}{% endblock %}

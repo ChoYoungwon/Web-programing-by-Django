@@ -5,7 +5,7 @@ class AlbumLV(ListView):
     model = Album
 
 class AlbumDV(DetailView):
-    model = Photo
+    model = Album
 
 class PhotoDV(DetailView):
     model = Photo
